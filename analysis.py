@@ -1,14 +1,42 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np
+
 # colors = sns.color_palette('husl', n_colors=20)
 
 df = pd.read_csv('starbucks.csv')
 df.info()
 print(df.describe())
+df.shape
+df.nunique()
+df.dtypes
+df.isnull().sum()
+
+'''
+Renaming Columns
+df.rename(columns ={ 
+    ' Total Fat (g)': 'total_fat_g',
+    'Trans Fat (g) ': 'trans_fat_g',
+    'Saturated Fat (g)': 'saturated_fat_g',
+    ' Sodium (mg)': 'sodium_mg',
+    ' Total Carbohydrates (g) ': 'total_carbohydrates_g',
+    'Cholesterol (mg)': 'cholesterol_mg',
+    ' Dietary Fibre (g)': 'dietary_fibre_g',
+    ' Sugars (g)': 'sugar_g',
+    ' Protein (g) ': 'protein_g',
+    'Vitamin A (% DV) ': 'Vitamin_A_DV',
+    'Vitamin C (% DV)': 'Vitamin_C_DV',
+    ' Calcium (% DV) ': 'calcium_DV',
+    'Iron (% DV) ': 'iron_DV',
+    'Caffeine (mg)': 'caffeine_mg'}, inplace=True
+         )
+         '''
+
 # Display the columns in the DataFrame
 print(df.columns)
+
+df['Beverage_category'].value_counts().plot(kind='bar', color='violet')
+plt.show()
 
 # Distribution of calories using a histogram
 plt.figure(figsize=(10, 6))
@@ -51,6 +79,7 @@ sns.heatmap(numeric_columns.corr(), annot=True, cmap='coolwarm', fmt=".2f")
 plt.title('Correlation Heatmap')
 plt.show()
 
+
 # Distribution of nutritional components for different beverage categories
 plt.figure(figsize=(12, 6))
 sns.boxplot(x='Beverage_category', y='Calories', data=df, color='red')
@@ -58,6 +87,9 @@ plt.title('Calories Distribution Across Beverage Categories')
 plt.xlabel('Beverage Category')
 plt.ylabel('Calories')
 plt.xticks(rotation=10, ha='right')
+plt.show()
+
+df.boxplot(column=[' Sugars (g)'])
 plt.show()
 
 # Relationships between many numerical variables
